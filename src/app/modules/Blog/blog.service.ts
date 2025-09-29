@@ -41,8 +41,27 @@ const getSingleBlog = async (slug: string): Promise<Blog | null> => {
   return result;
 };
 
+// For owner access
+const updateBlog = async (
+  id: string,
+  payload: Partial<Blog>
+): Promise<Blog> => {
+  if (payload.title) {
+    payload.slug = slugify(payload.title, { lower: true, strict: true });
+  }
+
+  const result = await prisma.blog.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  return result;
+};
+
 export const BlogService = {
   createBlog,
   getAllBlogs,
   getSingleBlog,
+  updateBlog,
 };
