@@ -3,6 +3,8 @@ import prisma from "../../../shared/prisma";
 import { createToken } from "../../../helpers/jwtHelpers";
 import { User } from "../../../generated/prisma";
 import config from "../../../config";
+import { setAuthCookie } from "../../../helpers/setCookie";
+import { Response } from "express";
 
 const registerOwner = async (
   payload: User
@@ -28,7 +30,10 @@ const registerOwner = async (
   return result;
 };
 
-const loginUser = async (payload: Pick<User, "email" | "password">) => {
+const loginUser = async (
+  res: Response,
+  payload: Pick<User, "email" | "password">
+) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: { email: payload.email },
   });
@@ -43,6 +48,8 @@ const loginUser = async (payload: Pick<User, "email" | "password">) => {
     config.jwt.secret as string,
     config.jwt.expires_in as string
   );
+
+  setAuthCookie(res, { accessToken });
 
   return { accessToken };
 };
