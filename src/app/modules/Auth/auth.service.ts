@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import prisma from "../../../shared/prisma";
 import { createToken } from "../../../helpers/jwtHelpers";
-import { User } from "../../../generated/prisma";
 import config from "../../../config";
 import { setAuthCookie } from "../../../helpers/setCookie";
 import { Response } from "express";
+import { User } from "@prisma/client";
 
 const registerOwner = async (
   payload: User

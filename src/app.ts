@@ -23,7 +23,7 @@ app.use("/api/v1", router);
 
 // Health Check Route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Portfolio server is running .....");
+  res.send("Portfolio server is running ...");
 });
 
 // --- Error Handling ---

@@ -1,6 +1,6 @@
 import slugify from "slugify";
 import prisma from "../../../shared/prisma";
-import { Blog } from "../../../generated/prisma";
+import { Blog } from "@prisma/client";
 
 const createBlog = async (payload: Blog): Promise<Blog> => {
   const slug = slugify(payload.title, {

@@ -1,4 +1,4 @@
-import { Project } from "../../../generated/prisma";
+import { Project } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 
 // For owner access
