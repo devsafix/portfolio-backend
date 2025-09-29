@@ -18,6 +18,24 @@ const createProject = async (
   }
 };
 
+const getAllProjects = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await ProjectService.getAllProjects();
+    res.status(200).json({
+      success: true,
+      message: "Projects retrieved successfully!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const ProjectController = {
   createProject,
+  getAllProjects,
 };
