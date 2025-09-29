@@ -27,8 +27,21 @@ const getSingleProject = async (id: string): Promise<Project | null> => {
   return result;
 };
 
+// For owner access
+const updateProject = async (
+  id: string,
+  payload: Partial<Project>
+): Promise<Project> => {
+  const result = await prisma.project.update({
+    where: { id },
+    data: payload,
+  });
+  return result;
+};
+
 export const ProjectService = {
   createProject,
   getAllProjects,
   getSingleProject,
+  updateProject,
 };
