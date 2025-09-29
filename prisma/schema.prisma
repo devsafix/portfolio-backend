@@ -31,3 +31,19 @@ model Blog {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+// Project schema
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  features      String[]
+  tags          String[]
+  thumbnail     String
+  liveSite      String
+  githubClient  String
+  githubBackend String?
+  technologies  String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
