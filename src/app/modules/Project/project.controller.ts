@@ -53,8 +53,26 @@ const getSingleProject = async (
   }
 };
 
+const updateProject = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const result = await ProjectService.updateProject(id, req.body);
+    res.status(200).json({
+      success: true,
+      message: "Project updated successfully!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const ProjectController = {
   createProject,
   getAllProjects,
-  getSingleProject
+  getSingleProject,
 };
