@@ -19,7 +19,16 @@ const getAllProjects = async (): Promise<Project[]> => {
   return result;
 };
 
+// For public access
+const getSingleProject = async (id: string): Promise<Project | null> => {
+  const result = await prisma.project.findUnique({
+    where: { id },
+  });
+  return result;
+};
+
 export const ProjectService = {
   createProject,
   getAllProjects,
+  getSingleProject,
 };
