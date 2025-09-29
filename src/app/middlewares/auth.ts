@@ -4,7 +4,6 @@ import config from "../../config";
 
 const auth = () => async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Get token from header
     const token = req.cookies.accessToken;
     if (!token) {
       throw new Error("You are not authorized!");
