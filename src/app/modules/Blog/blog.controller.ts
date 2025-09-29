@@ -14,6 +14,20 @@ const createBlog = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getAllBlogs = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await BlogService.getAllBlogs();
+    res.status(200).json({
+      success: true,
+      message: "Blogs retrieved successfully!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const BlogController = {
   createBlog,
+  getAllBlogs,
 };
