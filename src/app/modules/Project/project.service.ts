@@ -39,9 +39,18 @@ const updateProject = async (
   return result;
 };
 
+// For owner access
+const deleteProject = async (id: string): Promise<Project> => {
+  const result = await prisma.project.delete({
+    where: { id },
+  });
+  return result;
+};
+
 export const ProjectService = {
   createProject,
   getAllProjects,
   getSingleProject,
   updateProject,
+  deleteProject,
 };
