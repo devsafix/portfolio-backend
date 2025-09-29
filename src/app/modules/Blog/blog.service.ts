@@ -17,6 +17,20 @@ const createBlog = async (payload: Blog): Promise<Blog> => {
   return result;
 };
 
+// For public access
+const getAllBlogs = async (): Promise<Blog[]> => {
+  const result = await prisma.blog.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return result;
+};
+
 export const BlogService = {
   createBlog,
+  getAllBlogs,
 };
