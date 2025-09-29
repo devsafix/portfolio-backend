@@ -30,7 +30,19 @@ const getAllBlogs = async (): Promise<Blog[]> => {
   return result;
 };
 
+// For public access
+const getSingleBlog = async (slug: string): Promise<Blog | null> => {
+  const result = await prisma.blog.findUnique({
+    where: {
+      slug,
+      published: true,
+    },
+  });
+  return result;
+};
+
 export const BlogService = {
   createBlog,
   getAllBlogs,
+  getSingleBlog,
 };
