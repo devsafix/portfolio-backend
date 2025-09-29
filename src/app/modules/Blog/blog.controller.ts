@@ -27,7 +27,26 @@ const getAllBlogs = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getSingleBlog = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { slug } = req.params;
+    const result = await BlogService.getSingleBlog(slug);
+    res.status(200).json({
+      success: true,
+      message: "Blog retrieved successfully!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const BlogController = {
   createBlog,
   getAllBlogs,
+  getSingleBlog,
 };
