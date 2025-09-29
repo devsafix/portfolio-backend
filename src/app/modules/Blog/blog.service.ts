@@ -59,9 +59,20 @@ const updateBlog = async (
   return result;
 };
 
+// For owner access
+const deleteBlog = async (id: string): Promise<Blog> => {
+  const result = await prisma.blog.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
 export const BlogService = {
   createBlog,
   getAllBlogs,
   getSingleBlog,
   updateBlog,
+  deleteBlog,
 };
