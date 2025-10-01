@@ -10,8 +10,18 @@ const createProject = async (payload: Project): Promise<Project> => {
 };
 
 // For public access
-const getAllProjects = async (): Promise<Project[]> => {
+const getAllProjects = async (query?: { tag?: string }): Promise<Project[]> => {
+  const whereClause: any = {};
+
+  // If a tag is provided in the query, filter by it
+  if (query?.tag) {
+    whereClause.tags = {
+      has: query.tag,
+    };
+  }
+
   const result = await prisma.project.findMany({
+    where: whereClause,
     orderBy: {
       createdAt: "desc",
     },
