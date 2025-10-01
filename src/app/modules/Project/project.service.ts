@@ -4,11 +4,8 @@ import prisma from "../../../shared/prisma";
 // For owner access
 const createProject = async (payload: Project): Promise<Project> => {
   // Normalize the tags before saving
-  const normalizedTags = payload.tags.map(
-    (tag) =>
-      tag
-        .toLowerCase()
-        .replace(/\s+/g, "-")
+  const normalizedTags = payload.tags.map((tag) =>
+    tag.toLowerCase().replace(/\s+/g, "-")
   );
 
   const result = await prisma.project.create({
@@ -53,9 +50,17 @@ const updateProject = async (
   id: string,
   payload: Partial<Project>
 ): Promise<Project> => {
+  // Normalize the tags before saving
+  const normalizedTags = (payload.tags ?? []).map((tag) =>
+    tag.toLowerCase().replace(/\s+/g, "-")
+  );
+
   const result = await prisma.project.update({
     where: { id },
-    data: payload,
+    data: {
+      ...payload,
+      tags: normalizedTags.length > 0 ? normalizedTags : undefined,
+    },
   });
   return result;
 };
