@@ -24,7 +24,7 @@ const getAllProjects = async (
   next: NextFunction
 ) => {
   try {
-    const result = await ProjectService.getAllProjects();
+    const result = await ProjectService.getAllProjects(req.query);
     res.status(200).json({
       success: true,
       message: "Projects retrieved successfully!",

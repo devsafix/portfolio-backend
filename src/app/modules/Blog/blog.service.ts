@@ -20,9 +20,6 @@ const createBlog = async (payload: Blog): Promise<Blog> => {
 // For public access
 const getAllBlogs = async (): Promise<Blog[]> => {
   const result = await prisma.blog.findMany({
-    where: {
-      published: true,
-    },
     orderBy: {
       createdAt: "desc",
     },
@@ -35,7 +32,6 @@ const getSingleBlog = async (slug: string): Promise<Blog | null> => {
   const result = await prisma.blog.findUnique({
     where: {
       slug,
-      published: true,
     },
   });
   return result;
