@@ -1,16 +1,30 @@
 import { Response } from "express";
 
 export interface AuthTokens {
-  accessToken?: string;
+  accessTokenPortfolio?: string;
 }
 
 export const setAuthCookie = (res: Response, tokenInfo: AuthTokens) => {
-  if (tokenInfo.accessToken) {
-    res.cookie("accessToken", tokenInfo.accessToken, {
+  if (tokenInfo.accessTokenPortfolio) {
+    res.cookie("accessTokenPortfolio", tokenInfo.accessTokenPortfolio, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 2592000000,
+      path: "/",
     });
   }
 };
+
+// export const setAuthCookie = (res: Response, tokenInfo: AuthTokens) => {
+//   if (tokenInfo.accessTokenPortfolio) {
+//     res.cookie("accessTokenPortfolio", tokenInfo.accessTokenPortfolio, {
+//       httpOnly: true,
+//       secure: true, // true for https
+//       sameSite: "none", // Required for cross-origin in production
+//       maxAge: 2592000000,
+//       path: "/",
+//       // Don't set domain if frontend and backend are on different domains
+//     });
+//   }
+// };

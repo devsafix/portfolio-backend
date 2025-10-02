@@ -43,15 +43,15 @@ const loginUser = async (
     throw new Error("Invalid credentials");
   }
 
-  const accessToken = createToken(
+  const accessTokenPortfolio = createToken(
     { email: user.email, id: user.id },
     config.jwt.secret as string,
     config.jwt.expires_in as string
   );
 
-  setAuthCookie(res, { accessToken });
+  setAuthCookie(res, { accessTokenPortfolio });
 
-  return { accessToken };
+  return { accessTokenPortfolio };
 };
 
 const getMyProfile = async (
@@ -70,7 +70,7 @@ const getMyProfile = async (
 };
 
 const logoutUser = (res: Response) => {
-  res.clearCookie("accessToken", {
+  res.clearCookie("accessTokenPortfolio", {
     httpOnly: true,
     secure: true,
     sameSite: "none",
