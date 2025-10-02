@@ -18,8 +18,20 @@ const createBlog = async (payload: Blog): Promise<Blog> => {
 };
 
 // For public access
-const getAllBlogs = async (): Promise<Blog[]> => {
+const getAllBlogs = async (query?: {
+  searchTerm?: string;
+}): Promise<Blog[]> => {
+  const whereClause: any = {};
+
+  if (query?.searchTerm) {
+    whereClause.OR = [
+      { title: { contains: query.searchTerm, mode: "insensitive" } },
+      { content: { contains: query.searchTerm, mode: "insensitive" } },
+    ];
+  }
+
   const result = await prisma.blog.findMany({
+    where: whereClause,
     orderBy: {
       createdAt: "desc",
     },
