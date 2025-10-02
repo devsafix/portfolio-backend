@@ -54,7 +54,26 @@ const loginUser = async (
   return { accessToken };
 };
 
+const getMyProfile = async (
+  userId: string
+): Promise<Omit<User, "password"> | null> => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+  return user;
+};
+
+
+
 export const AuthService = {
   registerOwner,
   loginUser,
+  getMyProfile,
+
 };
