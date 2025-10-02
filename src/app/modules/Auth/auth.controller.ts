@@ -45,8 +45,21 @@ const getMyProfile = async (req: Request, res: Response) => {
   }
 };
 
+const logoutUser = async (req: Request, res: Response) => {
+  try {
+    AuthService.logoutUser(res);
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully!",
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
+
 export const AuthController = {
   registerOwner,
   loginUser,
   getMyProfile,
+  logoutUser,
 };
