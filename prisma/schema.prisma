@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url       = env("DIRECT_URL")
+  directUrl = env("DATABASE_URL")
 }
 
 // The owner (Me 😂)
@@ -44,4 +45,6 @@ model Project {
   technologies  String[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@map("projects")
 }
