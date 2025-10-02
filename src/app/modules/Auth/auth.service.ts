@@ -69,11 +69,17 @@ const getMyProfile = async (
   return user;
 };
 
-
+const logoutUser = (res: Response) => {
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+};
 
 export const AuthService = {
   registerOwner,
   loginUser,
   getMyProfile,
-
+  logoutUser,
 };
