@@ -31,7 +31,22 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+const getMyProfile = async (req: Request, res: Response) => {
+  try {
+    const user = (req as any).user;
+    const result = await AuthService.getMyProfile(user.id);
+    res.status(200).json({
+      success: true,
+      message: "Profile retrieved successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(401).json({ success: false, message: "Unauthorized", error });
+  }
+};
+
 export const AuthController = {
   registerOwner,
   loginUser,
+  getMyProfile,
 };
