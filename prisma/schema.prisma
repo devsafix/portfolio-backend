@@ -39,11 +39,25 @@ model Project {
   tags          String[]
   thumbnail     String
   liveSite      String
-  githubClient  String
+  githubClient  String?
   githubBackend String?
   technologies  String[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   @@map("projects")
+}
+
+// About Me Schema (Singleton Pattern)
+model About {
+  id            String   @id @default("singleton")
+  heroText      String   @db.Text
+  careerSummary String   @db.Text
+  interestText  String   @db.Text
+  goalText      String   @db.Text
+  resumeLink    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("about")
 }
