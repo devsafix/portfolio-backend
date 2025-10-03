@@ -4,7 +4,6 @@ import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
-router.post("/register", AuthController.registerOwner);
 router.post("/login", AuthController.loginUser);
 router.post("/logout", AuthController.logoutUser);
 

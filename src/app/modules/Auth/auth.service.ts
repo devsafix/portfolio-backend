@@ -6,30 +6,6 @@ import { setAuthCookie } from "../../../helpers/setCookie";
 import { Response } from "express";
 import { User } from "@prisma/client";
 
-const registerOwner = async (
-  payload: User
-): Promise<Omit<User, "password">> => {
-  const hashedPassword = await bcrypt.hash(
-    payload.password,
-    Number(config.bcrypt_salt_rounds)
-  );
-
-  const result = await prisma.user.create({
-    data: {
-      email: payload.email,
-      password: hashedPassword,
-    },
-    select: {
-      id: true,
-      email: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
-
-  return result;
-};
-
 const loginUser = async (
   res: Response,
   payload: Pick<User, "email" | "password">
@@ -78,7 +54,6 @@ const logoutUser = (res: Response) => {
 };
 
 export const AuthService = {
-  registerOwner,
   loginUser,
   getMyProfile,
   logoutUser,
