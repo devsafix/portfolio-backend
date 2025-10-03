@@ -21,9 +21,14 @@ const upsertAbout = async (payload: Partial<About>): Promise<About> => {
   return result;
 };
 
-
+const getAbout = async (): Promise<About | null> => {
+  const result = await prisma.about.findUnique({
+    where: { id: "singleton" },
+  });
+  return result;
+};
 
 export const AboutService = {
   upsertAbout,
-
+  getAbout,
 };
